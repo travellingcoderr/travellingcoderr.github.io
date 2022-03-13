@@ -9,31 +9,31 @@
          }
       </style>
    </head>
-   <body>
-      <p id="demo"></p>
+   <body>      
       <script>
+         getParameterByName = function(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+         }
+         
          var saveConsent = function() {
-         	location.href = "https://44.203.144.18:5050/getaddress?lat=28.1686591&lon=-82.3045107";
-         }
-         	
-         window.onload = function() {
-         	getLocation();
-         }
-         
-         var x = document.getElementById("demo");
-         
-         function getLocation() {
-           if (navigator.geolocation) {
-             navigator.geolocation.getCurrentPosition(showPosition);
-           } else { 
-             x.innerHTML = "Geolocation is not supported by this browser.";
-           }
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+              x.innerHTML = "Geolocation is not supported by this browser.";
+            }            
          }
          
-         function showPosition(position) {
-           x.innerHTML = "Latitude: " + position.coords.latitude + 
-           "<br>Longitude: " + position.coords.longitude;
+         function redirect(position) {
+            var saveHumanityApiUrl = "https://44.203.144.18:5050/getaddress?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;           
+            alert(saveHumanityApiUrl);
+            // location.href = saveHumanityApiUrl;
          }
+                  
       </script>
       <div class="myDiv">
          <h2>Save Humanity, Indian Embassy is here to help!</h2>
